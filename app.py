@@ -15,16 +15,16 @@ def home_page():
     return render_template('index.html')
 
 
-@app.route('/category')
+@app.route('/categories')
 def category_list():
-    return list(data.keys())
+    return str(list(data.keys()))
 
 
 @app.route('/<string:name>')
 def topic_page(name):
     name = name.lower()
     issues_names = list(data[name].keys())
-    return issues_names
+    return str(issues_names)
     # if len(issues_names) == 1:
     #     return 'The current issue in {} is {}.'.format(name, issues_names[0])
 
