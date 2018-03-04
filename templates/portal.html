@@ -38,6 +38,9 @@
             <a class="nav-link" href="/portal">Portal</a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" href="/parentportal">Parent Portal</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="/awoo">About Awoo</a>
           </li>
         </ul>
@@ -59,6 +62,11 @@
         </div>
 
 </div>
+</div>
+<div class="row">
+  <div class="col-lg-12" id="ParentalControl">
+    
+  </div>
 </div>
 </section>
 </div>
@@ -82,7 +90,8 @@
     for(var name in data['data']) {
       var count = 0;
       var seen = 0;
-      for(var subname in data['data'][name]) {
+      for(var subname in data['data'][name]) { 
+        $('#ParentalControl').append(`<h6>${subname}</h6>`) 
         count += 1;
         if(data['data'][name][subname]['visited']) {
           seen += 1;

@@ -16,6 +16,10 @@ def home_page():
 def portal_page():
     return render_template('portal.html')
 
+@app.route('/parentportal')
+def parentportal_page():
+    return render_template('parentportal.html')    
+
 
 @app.route('/awoo')
 def awoo_page():
