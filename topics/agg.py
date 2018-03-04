@@ -60,32 +60,32 @@ def load_data():
 
 if __name__ == '__main__':
 
-    # data = load_data()
-
-    # things = 0
-    # derp = {}
-
-    # for k, v in data.iteritems():
-    #     things += len(v)
-    #     derp[k] = len(v)
-
-    #     print k, len(v)
-
     data = load_data()
 
+    things = 0
+    derp = {}
+
     for k, v in data.iteritems():
-        k2 = k.replace(' Issues', '').lower()
-        del data[k]
-        data[k2] = v
-        for k3, v2 in v.iteritems():
-            v2['allowed'] = True
-            v2['visited'] = False
-            k4 = k3.lower()
-            del data[k2][k3]
-            data[k2][k4] = v2
+        things += len(v)
+        derp[k] = len(v)
+
+        print k, len(v)
+
+    # data = load_data()
+
+    # for k, v in data.iteritems():
+    #     k2 = k.replace(' Issues', '').lower()
+    #     del data[k]
+    #     data[k2] = v
+    #     for k3, v2 in v.iteritems():
+    #         v2['allowed'] = True
+    #         v2['visited'] = False
+    #         k4 = k3.lower()
+    #         del data[k2][k3]
+    #         data[k2][k4] = v2
 
 
-    with open('raw_data.json', 'w') as outfile:
-        json.dump(data, outfile)
+    # with open('raw_data.json', 'w') as outfile:
+    #     json.dump(data, outfile)
 
 
