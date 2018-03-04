@@ -50,7 +50,14 @@
 
       <div class="row">
         <div class="col-lg-4">
+
           <img class="img-fluid" src="static/img/awoo.png" width=300 height=300>
+          <hr>
+          <div class="pre-scrollable">
+            <h3>Log:</h3>
+            <ul class="list-group" id='log'>
+            </ul>
+          </div>
         </div>
         <div class="col-lg-8">
           <h1>Progress:</h1>
@@ -77,8 +84,15 @@
 <script src="static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 <script type="text/javascript">
-  $.get("/all_data", function(data) {
+  function updateContainer(data) {
+    $('#log').html('')
+    $('#topics').html('')
     console.log(data)
+
+    for(var i = 0; i < data['log'].length; i++) {
+      $('#log').append(`<li class="list-group-item">${data['log'][i]}</li>`)
+    }
+
     for(var name in data['data']) {
       var count = 0;
       var seen = 0;
@@ -88,18 +102,26 @@
           seen += 1;
         }
       }
-      console.log(seen/count)
+      if(seen == 0) {
+        continue;
+      }
       // add topic info to DOM
       $('#topics').append(`<div class="panel-body">
             <div class="alert alert-info">
-              <h3>${name}</h3>
+              <h3 style="display: inline-block;">${name}</h3><span style="float: right;">${seen + '/' + count}</span>
               <div class="progress">
                 <div class="progress-bar" role="progressbar" style="width: ${100*seen/count}%;"></div>
               </div>
             </div>
           </div>`)
     }
-  })
+
+    setTimeout(function() {
+      $.get("/all_data", updateContainer)
+    }, 3000);
+  }
+
+  $.get("/all_data", updateContainer)
 
 
 </script>

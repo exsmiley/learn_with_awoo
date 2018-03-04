@@ -4,7 +4,7 @@ from topics.agg import load_data
 
 app = Flask(__name__)
 data = load_data()
-log = []
+log = ['Heard about science: space exploration!', 'Heard about immigration: citizenship test!']
 
 
 @app.route('/')
@@ -37,7 +37,7 @@ def topic_page(name):
 def specific_data(cat, name):
     cat = cat.lower()
     name = name.lower()
-    log.append('Visited {}/{}'.format(cat, name))
+    log.append('Heard about {}: {}!'.format(cat, name))
     data[cat][name]['visited'] = True
     # TODO maybe add restriction
     return jsonify(data[cat][name]['desc'])
@@ -60,7 +60,7 @@ def unban(cat, name):
 
 @app.route('/all_data')
 def all_data():
-    return jsonify({'data': data, 'log': log})
+    return jsonify({'data': data, 'log': log[::-1]})
 
 
 @app.errorhandler(404)
