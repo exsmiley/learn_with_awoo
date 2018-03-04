@@ -5,7 +5,7 @@ import json
 import tqdm
 import os
 
-_path = os.path.realpath(__file__)
+dir_path = os.path.dirname(os.path.realpath(__file__))
 
 
 base_url = 'https://www.isidewith.com'
@@ -53,10 +53,7 @@ def get_all_links():
         json.dump(data, outfile)
 
 def load_data():
-    dirpath = '/'.join(_path.split('/')[:-1]) + '/'
-    if len(dirpath) == 1:
-        dirpath = './'
-    with open(dirpath + 'raw_data.json') as f:
+    with open(os.path.join(dir_path, 'raw_data.json')) as f:
         data = json.load(f)
     return data
 
