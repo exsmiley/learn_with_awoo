@@ -46,15 +46,17 @@ def get_all_links():
                     'desc': desc
                 }
             except:
-                print link, 'failed'
+                # print link, 'failed'
                 pass
 
     with open('raw_data.json', 'w') as outfile:
         json.dump(data, outfile)
 
 def load_data():
-    dirpath = '/'.join(_path.split('/')[:-1])
-    with open(dirpath + '/raw_data.json') as f:
+    dirpath = '/'.join(_path.split('/')[:-1]) + '/'
+    if len(dirpath) == 1:
+        dirpath = './'
+    with open(dirpath + 'raw_data.json') as f:
         data = json.load(f)
     return data
 

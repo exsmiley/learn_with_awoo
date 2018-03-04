@@ -27,4 +27,4 @@ def topic_page(name):
     return 'The issues in {} are {}.'.format(name, issues)
 
 if __name__ == '__main__':
-    print topic_page('Immigration')
+    print(topic_page('Immigration'))
