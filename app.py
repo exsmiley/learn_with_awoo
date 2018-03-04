@@ -11,19 +11,19 @@ def home_page():
     return render_template('index.html')
 
 
-@app.route('/topic')
-def topic_list():
+@app.route('/<string:catergory>')
+def catergory_list(catergory):
 	return list(data.keys())
 
 
-@app.route('/topic/<string:name>')
-def topic_page(name):
+@app.route('/<string:catergory>/<string:name>')
+def topic_page(catergory, name):
     name = name.lower()
     issues_names = list(data[name].keys())
     if len(issues_names) == 1:
         return 'The current issue in {} is {}.'.format(name, issues_names[0])
 
-    issues = ', '.join(issues_names[:-1]) + ', and ' + issues_names[-1]
+	    issues = ', '.join(issues_names[:-1]) + ', and ' + issues_names[-1]
 
     return 'The issues in {} are {}.'.format(name, issues)
 
