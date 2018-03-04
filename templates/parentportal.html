@@ -76,12 +76,15 @@
     console.log(data)
     console.log("Hello")
     for(var name in data['data']) {
+      name2=name.charAt(0).toUpperCase() + name.slice(1);
+      console.log(name);
       var count = 0;
       var seen = 0;
-      var name2=name.replace(' ', '_'); 
-      $('#ParentalControl').append(`<div class="btn-block"><button data-toggle="collapse" data-target=".${name2}">${name}</button></div>`) 
+      var name3=name.replace(' ', '_'); 
+      $('#ParentalControl').append(`<div class="col-lg-12 "><button data-toggle="collapse" data-target=".${name3}" style="width: 100%; margin: 10px">${name2}</button></div>`) 
       for(var subname in data['data'][name]) {
-        $('#ParentalControl').append(`<div class="col-lg-4 collapse ${name2}"><input id=${subname} type="checkbox" style="margin: 5px">${subname}</div>`) 
+        var subname2=subname.charAt(0).toUpperCase() + subname.slice(1);
+        $('#ParentalControl').append(`<div class="col-lg-3 collapse ${name3}" style="margin: 10px; width: 30%"><input id=${subname2} type="checkbox" style="margin: 5px">${subname2}</div>`) 
         count += 1;
         if(data['data'][name][subname]['visited']) {
           seen += 1;
