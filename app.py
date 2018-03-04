@@ -23,14 +23,32 @@ def category_list():
 @app.route('/category/<string:name>')
 def topic_page(name):
     name = name.lower()
-    issues_names = list(data[name].keys())
-    return jsonify(data[name])
-    # if len(issues_names) == 1:
-    #     return 'The current issue in {} is {}.'.format(name, issues_names[0])
+    issues_names = [issue for issue, val in data[name].iteritems() if val['allowed']]
+    return jsonify(issues_names)
 
-    #     issues = ', '.join(issues_names[:-1]) + ', and ' + issues_names[-1]
 
-    # return 'The issues in {} are {}.'.format(name, issues)
+@app.route('/specific/<string:cat>/<string:name>')
+def specific_data(cat, name):
+    cat = cat.lower()
+    name = name.lower()
+    return jsonify(data[cat][name]['desc'])
+
+
+@app.route('/ban/<string:cat>/<string:name>')
+def ban(cat, name):
+    cat = cat.lower()
+    name = name.lower()
+    data[cat][name]['allowed'] = False
+    return jsonify(True)
+
+
+@app.route('/unban/<string:cat>/<string:name>')
+def unban(cat, name):
+    cat = cat.lower()
+    name = name.lower()
+    data[cat][name]['allowed'] = False
+    return jsonify(True)
+
 
 @app.errorhandler(404)
 def page_not_found(e):
