@@ -18,7 +18,7 @@ def topic_list():
 @app.route('/topic/<string:name>')
 def topic_page(name):
     name = name.lower()
-    issues_names = data[name].keys()
+    issues_names = list(data[name].keys())
     if len(issues_names) == 1:
         return 'The current issue in {} is {}.'.format(name, issues_names[0])
 
