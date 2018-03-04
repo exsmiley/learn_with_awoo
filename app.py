@@ -16,7 +16,7 @@ def category_list():
     return str(list(data.keys()))
 
 
-@app.route('/<string:name>')
+@app.route('/category/<string:name>')
 def topic_page(name):
     name = name.lower()
     issues_names = list(data[name].keys())
@@ -27,6 +27,10 @@ def topic_page(name):
     #     issues = ', '.join(issues_names[:-1]) + ', and ' + issues_names[-1]
 
     # return 'The issues in {} are {}.'.format(name, issues)
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
 
 if __name__ == '__main__':
     print(topic_page('Immigration'))
