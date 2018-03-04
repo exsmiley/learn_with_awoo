@@ -12,7 +12,7 @@ def home_page():
     return render_template('index.html')
 
 
-@app.route('/portal')
+@app.route('/progress')
 def portal_page():
     return render_template('portal.html')
 
