@@ -3,6 +3,9 @@ from bs4 import BeautifulSoup
 import pickle
 import json
 import tqdm
+import os
+
+_path = os.path.realpath(__file__)
 
 
 base_url = 'https://www.isidewith.com'
@@ -50,23 +53,38 @@ def get_all_links():
         json.dump(data, outfile)
 
 def load_data():
-    with open('raw_data.json') as f:
+    dirpath = '/'.join(_path.split('/')[:-1])
+    with open(dirpath + '/raw_data.json') as f:
         data = json.load(f)
     return data
 
 
 if __name__ == '__main__':
 
+    # data = load_data()
+
+    # things = 0
+    # derp = {}
+
+    # for k, v in data.iteritems():
+    #     things += len(v)
+    #     derp[k] = len(v)
+
+    #     print k, len(v)
+
     data = load_data()
 
-    things = 0
-    derp = {}
-
     for k, v in data.iteritems():
-        things += len(v)
-        derp[k] = len(v)
+        k2 = k.replace(' Issues', '').lower()
+        del data[k]
+        data[k2] = v
+        for k3, v2 in v.iteritems():
+            k4 = k3.lower()
+            del data[k2][k3]
+            data[k2][k4] = v2
 
-        print k, len(v)
 
+    with open('raw_data.json', 'w') as outfile:
+        json.dump(data, outfile)
 
 
