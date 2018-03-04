@@ -1,5 +1,6 @@
-from flask import Flask
+from flask import Flask, render_template
 from topics.agg import load_data
+
 
 app = Flask(__name__)
 data = load_data()
@@ -8,6 +9,10 @@ data = load_data()
 @app.route('/')
 def hello_world():
     return 'Hello, World!'
+
+@app.route('/home')
+def home_page():
+    return render_template('index.html')
 
 
 @app.route('/topic')
@@ -26,5 +31,5 @@ def topic_page(name):
 
     return 'The issues in {} are {}.'.format(name, issues)
 
-if __name__ == '__main__':
-    print(topic_page('Immigration'))
+# if __name__ == '__main__':
+#     print(topic_page('Immigration'))
