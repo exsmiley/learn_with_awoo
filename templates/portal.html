@@ -84,7 +84,7 @@
       var seen = 0;
       for(var subname in data['data'][name]) {
         count += 1;
-        if(data[name][subname]['visited']) {
+        if(data['data'][name][subname]['visited']) {
           seen += 1;
         }
       }

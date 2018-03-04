@@ -24,7 +24,7 @@ def awoo_page():
 
 @app.route('/categories')
 def category_list():
-    return jsonify(data)
+    return jsonify(list(data.keys()))
 
 @app.route('/category/<string:name>')
 def topic_page(name):
