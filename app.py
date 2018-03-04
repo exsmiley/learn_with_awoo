@@ -4,11 +4,17 @@ from topics.agg import load_data
 
 app = Flask(__name__)
 data = load_data()
+log = []
 
 
 @app.route('/')
 def home_page():
     return render_template('index.html')
+
+
+@app.route('/portal')
+def portal_page():
+    return render_template('portal.html')
 
 
 @app.route('/awoo')
@@ -18,19 +24,44 @@ def awoo_page():
 
 @app.route('/categories')
 def category_list():
-    return jsonify(data)
+    return jsonify(list(data.keys()))
 
 @app.route('/category/<string:name>')
 def topic_page(name):
     name = name.lower()
-    issues_names = list(data[name].keys())
-    return jsonify(data[name])
-    # if len(issues_names) == 1:
-    #     return 'The current issue in {} is {}.'.format(name, issues_names[0])
+    issues_names = [issue for issue, val in data[name].iteritems() if val['allowed']]
+    return jsonify(issues_names)
 
-    #     issues = ', '.join(issues_names[:-1]) + ', and ' + issues_names[-1]
 
-    # return 'The issues in {} are {}.'.format(name, issues)
+@app.route('/specific/<string:cat>/<string:name>')
+def specific_data(cat, name):
+    cat = cat.lower()
+    name = name.lower()
+    log.append('Visited {}/{}'.format(cat, name))
+    data[cat][name]['visited'] = True
+    # TODO maybe add restriction
+    return jsonify(data[cat][name]['desc'])
+
+
+@app.route('/ban/<string:cat>/<string:name>')
+def ban(cat, name):
+    cat = cat.lower()
+    name = name.lower()
+    data[cat][name]['allowed'] = False
+    return jsonify(True)
+
+
+@app.route('/unban/<string:cat>/<string:name>')
+def unban(cat, name):
+    cat = cat.lower()
+    name = name.lower()
+    data[cat][name]['allowed'] = False
+    return jsonify(True)
+
+@app.route('/all_data')
+def all_data():
+    return jsonify({'data': data, 'log': log})
+
 
 @app.errorhandler(404)
 def page_not_found(e):
