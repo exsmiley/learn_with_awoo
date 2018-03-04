@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, jsonify
 from topics.agg import load_data
 
 
@@ -13,14 +13,13 @@ def home_page():
 
 @app.route('/categories')
 def category_list():
-    return str(list(data.keys()))
-
+    return jsonify(data)
 
 @app.route('/<string:name>')
 def topic_page(name):
     name = name.lower()
     issues_names = list(data[name].keys())
-    return str(issues_names)
+    return jsonify(data[name])
     # if len(issues_names) == 1:
     #     return 'The current issue in {} is {}.'.format(name, issues_names[0])
 
