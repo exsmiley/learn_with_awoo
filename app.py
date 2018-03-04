@@ -59,7 +59,7 @@ def ban(cat, name):
 def unban(cat, name):
     cat = cat.lower()
     name = name.lower()
-    data[cat][name]['allowed'] = False
+    data[cat][name]['allowed'] = True
     return jsonify(True)
 
 @app.route('/all_data')

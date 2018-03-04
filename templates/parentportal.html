@@ -72,34 +72,38 @@
 <script src="static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 <script type="text/javascript">
+  var myData;
+  function trigger(ctrl) {
+    var name, subname;
+    [name, subname] = ctrl.id.split('|');
+    var toBan = '/unban/';
+    if(myData[name][subname]['allowed']) {
+      toBan = '/ban/';
+    }
+
+    $.get(toBan + name + '/' + subname, function(data) {
+      // do nothing
+      console.log(data + toBan);
+      myData[name][subname]['allowed'] = !myData[name][subname]['allowed'];
+    })
+  }
+
+
   $.get("/all_data", function(data) {
-    console.log(data)
-    console.log("Hello")
+    myData = data['data'];
     for(var name in data['data']) {
-      name2=name.charAt(0).toUpperCase() + name.slice(1);
-      console.log(name);
-      var count = 0;
-      var seen = 0;
+      var name2=name.charAt(0).toUpperCase() + name.slice(1);
+
       var name3=name.replace(' ', '_'); 
       $('#ParentalControl').append(`<div class="col-lg-12 "><button data-toggle="collapse" data-target=".${name3}" style="width: 100%; margin: 10px">${name2}</button></div>`) 
       for(var subname in data['data'][name]) {
-        var subname2=subname.charAt(0).toUpperCase() + subname.slice(1);
-        $('#ParentalControl').append(`<div class="col-lg-3 collapse ${name3}" style="margin: 10px; width: 30%"><input id=${subname2} type="checkbox" style="margin: 5px">${subname2}</div>`) 
-        count += 1;
-        if(data['data'][name][subname]['visited']) {
-          seen += 1;
+        var isChecked = ' checked';
+        if(myData[name][subname]['allowed']) {
+          isChecked = ''
         }
+        var subname2=subname.charAt(0).toUpperCase() + subname.slice(1);
+        $('#ParentalControl').append(`<div class="col-lg-3 collapse ${name3}" style="margin: 10px; width: 30%"><input id="${name}|${subname}"" type="checkbox" style="margin: 5px" onClick=trigger(this) ${isChecked}>${subname2}</div>`) 
       }
-      console.log(seen/count)
-      // add topic info to DOM
-      $('#topics').append(`<div class="panel-body">
-            <div class="alert alert-info">
-              <h3>${name}</h3>
-              <div class="progress">
-                <div class="progress-bar" role="progressbar" style="width: ${100*seen/count}%;"></div>
-              </div>
-            </div>
-          </div>`)
     }
   })
 
