@@ -1,8 +1,8 @@
-import requests
-from bs4 import BeautifulSoup
-import pickle
+# import requests
+# from bs4 import BeautifulSoup
+# import pickle
 import json
-import tqdm
+# import tqdm
 import os
 
 dir_path = os.path.dirname(os.path.realpath(__file__))

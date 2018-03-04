@@ -11,6 +11,11 @@ def home_page():
     return render_template('index.html')
 
 
+@app.route('/awoo')
+def awoo_page():
+    return render_template('awoo.html')
+
+
 @app.route('/categories')
 def category_list():
     return jsonify(data)
