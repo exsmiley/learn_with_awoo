@@ -77,13 +77,14 @@ header.masthead .bg-circle {
   z-index: 0;
   position: absolute;
   border-radius: 100%;
-  background: linear-gradient(0deg, #ee0979 0%, #ff6a00 100%);
+  /*background: linear-gradient(0deg, #ee0979 0%, #ff6a00 100%);*/
+  background-image: url("../img/awoo.png");
 }
 
 header.masthead .bg-circle-1 {
   height: 90rem;
   width: 90rem;
-  bottom: -55rem;
+  bottom: -65rem;
   left: -55rem;
 }
 
@@ -92,13 +93,15 @@ header.masthead .bg-circle-2 {
   width: 50rem;
   top: -25rem;
   right: -25rem;
+  background-image: url("../img/awoo5.png");
 }
 
 header.masthead .bg-circle-3 {
   height: 20rem;
   width: 20rem;
-  bottom: -10rem;
+  bottom: -5rem;
   right: 5%;
+  background-image: url("../img/awoo3.png");
 }
 
 header.masthead .bg-circle-4 {

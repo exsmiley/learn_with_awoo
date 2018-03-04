@@ -7,10 +7,6 @@ data = load_data()
 
 
 @app.route('/')
-def hello_world():
-    return 'Hello, World!'
-
-@app.route('/home')
 def home_page():
     return render_template('index.html')
 
@@ -31,5 +27,5 @@ def topic_page(name):
 
     return 'The issues in {} are {}.'.format(name, issues)
 
-# if __name__ == '__main__':
-#     print(topic_page('Immigration'))
+if __name__ == '__main__':
+    print(topic_page('Immigration'))
