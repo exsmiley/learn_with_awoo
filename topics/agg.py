@@ -79,6 +79,7 @@ if __name__ == '__main__':
         data[k2] = v
         for k3, v2 in v.iteritems():
             v2['allowed'] = True
+            v2['visited'] = False
             k4 = k3.lower()
             del data[k2][k3]
             data[k2][k4] = v2

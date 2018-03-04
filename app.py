@@ -4,11 +4,17 @@ from topics.agg import load_data
 
 app = Flask(__name__)
 data = load_data()
+log = []
 
 
 @app.route('/')
 def home_page():
     return render_template('index.html')
+
+
+@app.route('/portal')
+def portal_page():
+    return render_template('portal.html')
 
 
 @app.route('/awoo')
@@ -31,6 +37,9 @@ def topic_page(name):
 def specific_data(cat, name):
     cat = cat.lower()
     name = name.lower()
+    log.append('Visited {}/{}'.format(cat, name))
+    data[cat][name]['visited'] = True
+    # TODO maybe add restriction
     return jsonify(data[cat][name]['desc'])
 
 
@@ -48,6 +57,10 @@ def unban(cat, name):
     name = name.lower()
     data[cat][name]['allowed'] = False
     return jsonify(True)
+
+@app.route('/all_data')
+def all_data():
+    return jsonify({'data': data, 'log': log})
 
 
 @app.errorhandler(404)
